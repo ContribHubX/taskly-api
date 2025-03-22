@@ -7,30 +7,30 @@ use App\Http\Requests\UpdateTaskRequest;
 use App\Models\Task;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
 
 class TaskService
 {
-    public function createTask(StoreTaskRequest $request) : Task
+    public function createTask(StoreTaskRequest $request)
     {
         $data = $request->validated();
+        $data[Task::USER_ID] = Auth::id();
         return Task::create($data);
     }
 
-    public function updateTask(UpdateTaskRequest $request, Task $existingTask) : Task
+    public function updateTask(UpdateTaskRequest $request, Task $existingTask)
     {
         $data = $request->validated();
         $existingTask->update($data);
         return $existingTask;
     }
 
-    public function deleteTask(Task $task) : Task
+    public function deleteTask(Task $task)
     {
         $task->delete();
         return $task;
     }
 
-    public function getTask(Task $task) : Task
+    public function getTask(Task $task)
     {
         return $task;
     }

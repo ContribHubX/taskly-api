@@ -16,7 +16,6 @@ class StoreTaskRequest extends FormRequest
     public function rules(): array
     {
         return [
-            Task::USER_ID => 'required|uuid|exists:users,id',
             Task::TITLE => 'required|string',
             Task::DESCRIPTION => 'string',
             Task::DUE_DATE => 'required|date|after_or_equal:today',

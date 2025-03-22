@@ -2,12 +2,11 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TaskController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/health', function (Request $request) {
-  return response()->json(["message" => "Healthy"]);
+Route::get('/health', function () {
+  return "Healthy";
 });
 
 
@@ -15,7 +14,7 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
 // Protected Authentication Routes (Require Authentication)
-Route::middleware('auth:sanctum')->group(function () {
+Route::group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/me', [AuthController::class, 'getMyDetails']);
 
@@ -24,7 +23,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/forgot', [AuthController::class, 'sendResetLink']);
         Route::post('/reset', [AuthController::class, 'resetPassword'])->name('password.update');
     });
-});
+})->middleware('auth:sanctum');
 
 
 

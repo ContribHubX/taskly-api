@@ -32,6 +32,7 @@ class TaskController extends Controller
      */
     public function store(StoreTaskRequest $request)
     {
+        Gate::authorize('create', Task::class);
         return response()->json(
             $this->taskService->createTask($request)
         );
