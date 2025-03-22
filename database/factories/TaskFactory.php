@@ -2,6 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Enums\TaskEnums;
+use App\Models\Task;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +20,12 @@ class TaskFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            Task::ID => fake()->uuid(),
+            Task::USER_ID => User::factory(),
+            Task::TITLE => fake()->sentence(),
+            Task::DESCRIPTION => fake()->paragraph(),
+            Task::DUE_DATE => fake()->dateTimeThisDecade(),
+            Task::PRIORITY => fake()->randomElement(TaskEnums::get()),
         ];
     }
 }

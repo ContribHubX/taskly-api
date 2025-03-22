@@ -51,7 +51,7 @@ class User extends Authenticatable implements CanResetPassword
         ];
     }
 
-    public const string TABLE_NAME = "users";
+    public const TABLE_NAME = "users";
 
     public const NAME = "name";
     public const EMAIL = "email";
