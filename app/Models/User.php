@@ -3,14 +3,20 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Models\Attributes\HasDefaultConcreteFields;
+use Illuminate\Contracts\Auth\CanResetPassword;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
+use App\Models\Task;
 
-class User extends Authenticatable
+class User extends Authenticatable implements CanResetPassword
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasApiTokens, HasDefaultConcreteFields, HasUuids;
 
     /**
      * The attributes that are mass assignable.
@@ -18,9 +24,9 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        self::NAME,
+        self::EMAIL,
+        self::PASSWORD,
     ];
 
     /**
@@ -29,8 +35,8 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $hidden = [
-        'password',
-        'remember_token',
+        self::PASSWORD,
+        self::REMEMBER_TOKEN,
     ];
 
     /**
@@ -41,8 +47,20 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            self::PASSWORD => 'hashed',
         ];
+    }
+
+    public const string TABLE_NAME = "users";
+
+    public const NAME = "name";
+    public const EMAIL = "email";
+    public const PASSWORD = "password";
+    public const REMEMBER_TOKEN = "remember_token";
+
+
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
     }
 }
