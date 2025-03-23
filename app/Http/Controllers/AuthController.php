@@ -13,7 +13,6 @@ use App\Services\PasswordResetService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 
-
 class AuthController extends Controller
 {
     protected $authService;
