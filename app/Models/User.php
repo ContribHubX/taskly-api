@@ -27,6 +27,8 @@ class User extends Authenticatable implements CanResetPassword
         self::NAME,
         self::EMAIL,
         self::PASSWORD,
+        self::EMAIL_VERIFIED_AT,
+        self::VERIFICATION_TOKEN
     ];
 
     /**
@@ -57,6 +59,8 @@ class User extends Authenticatable implements CanResetPassword
     public const EMAIL = "email";
     public const PASSWORD = "password";
     public const REMEMBER_TOKEN = "remember_token";
+    public const EMAIL_VERIFIED_AT = "email_verified_at";
+    public const VERIFICATION_TOKEN = "verification_token";
 
 
     public function tasks()

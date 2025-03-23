@@ -16,6 +16,8 @@ return new class extends Migration
             $table->uuid(User::ID)->primary()->comment("Primary key");
             $table->string(User::NAME)->comment("User's name");
             $table->string(User::EMAIL)->unique()->comment("Unique email");
+            $table->string(User::EMAIL_VERIFIED_AT)->nullable()->comment("Email verification timestamp");
+            $table->string(User::VERIFICATION_TOKEN)->nullable()->comment("Email verification token");
             $table->string(User::PASSWORD)->comment("Hashed password");
             $table->rememberToken();
             $table->timestamps();
